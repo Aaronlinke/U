@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metropolis Prime - Selbst-Souveränes Digitales Ökosystem</title>
+    <style>
+        :root {
+            --primary: #00d2d3;
+            --primary-dark: #00a8a9;
+            --secondary: #54a0ff;
+            --accent: #5f27cd;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gray: #64748b;
+            --metropolis-blue: #1e3a8a;
+            --metropolis-purple: #7c3aed;
+            --metropolis-green: #059669;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 30%, #16213e 70%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--gray);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 0;
+            position: relative;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(0, 210, 211, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+        }
+
+        .system-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: rgba(0, 210, 211, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .status-pulse {
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .architecture-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .architecture-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .architecture-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .architecture-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .architecture-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .architecture-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .architecture-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: white;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+        }
+
+        .architecture-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--light);
+        }
+
+        .architecture-description {
+            color: var(--gray);
+            line-height: 1.7;
+            margin-bottom: 20px;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            border: 1px solid rgba(0, 210, 211, 0.3);
+        }
+
+        .principles-section {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 60px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .principles-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .principles-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .principle-item {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .principle-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .principle-description {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .roadmap-section {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .roadmap-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            color: var(--accent);
+            text-align: center;
+        }
+
+        .roadmap-phases {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .phase-card {
+            background: rgba(15, 23, 42, 0.5);
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            position: relative;
+        }
+
+        .phase-number {
+            position: absolute;
+            top: -10px;
+            left: 20px;
+            background: var(--primary);
+            color: var(--dark);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .phase-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--light);
+            margin-bottom: 15px;
+            margin-top: 10px;
+        }
+
+        .phase-description {
+            color: var(--gray);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .demo-section {
+            text-align: center;
+            padding: 40px;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .demo-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .demo-description {
+            color: var(--gray);
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .demo-button {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .demo-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 210, 211, 0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .architecture-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .roadmap-phases {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="logo">🏙️ METROPOLIS PRIME</div>
+            <div class="nav-links">
+                <a href="../hub/index.html" class="nav-link">← Hub</a>
+                <a href="#architecture" class="nav-link">Architektur</a>
+                <a href="#principles" class="nav-link">Prinzipien</a>
+                <a href="#roadmap" class="nav-link">Roadmap</a>
+            </div>
+        </nav>
+
+        <section class="hero-section">
+            <h1 class="hero-title">Metropolis Prime</h1>
+            <p class="hero-subtitle">Selbst-Souveränes Digitales Ökosystem (SSDE)</p>
+            <div class="system-status">
+                <div class="status-pulse"></div>
+                <span>System Aktiv - Dezentral & Serverlos</span>
+            </div>
+        </section>
+
+        <section class="architecture-grid" id="architecture">
+            <div class="architecture-card">
+                <div class="architecture-header">
+                    <div class="architecture-icon">📱</div>
+                    <h3 class="architecture-title">Progressive Web App (PWA)</h3>
+                </div>
+                <p class="architecture-description">
+                    Hochoptimierte PWA als Primärkanal mit Service Workern für Offline-Fähigkeit. 
+                    Installation ohne App-Store über einfachen Link oder QR-Code.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">Service Worker</span>
+                    <span class="tech-tag">WebAssembly</span>
+                    <span class="tech-tag">IndexedDB</span>
+                    <span class="tech-tag">Offline-First</span>
+                </div>
+            </div>
+
+            <div class="architecture-card">
+                <div class="architecture-header">
+                    <div class="architecture-icon">🔗</div>
+                    <h3 class="architecture-title">Peer-to-Peer Kommunikation</h3>
+                </div>
+                <p class="architecture-description">
+                    WebRTC ermöglicht direkte P2P-Kommunikation zwischen Smartphones ohne zentrale Server. 
+                    Dezentrale Signalisierung über DHT-Netzwerke.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">WebRTC</span>
+                    <span class="tech-tag">Kademlia DHT</span>
+                    <span class="tech-tag">DTLS</span>
+                    <span class="tech-tag">P2P Mesh</span>
+                </div>
+            </div>
+
+            <div class="architecture-card">
+                <div class="architecture-header">
+                    <div class="architecture-icon">🗄️</div>
+                    <h3 class="architecture-title">Dezentrale Datenspeicherung</h3>
+                </div>
+                <p class="architecture-description">
+                    Lokale Datensouveränität durch persistenten Smartphone-Speicher. 
+                    Globale Daten über IPFS und Blockchain für Unveränderlichkeit.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">IPFS</span>
+                    <span class="tech-tag">Blockchain</span>
+                    <span class="tech-tag">File System API</span>
+                    <span class="tech-tag">Content Addressing</span>
+                </div>
+            </div>
+
+            <div class="architecture-card">
+                <div class="architecture-header">
+                    <div class="architecture-icon">🔐</div>
+                    <h3 class="architecture-title">Dezentrale Identität (DID)</h3>
+                </div>
+                <p class="architecture-description">
+                    Self-Sovereign Identity (SSI) für vollständige Kontrolle über digitale Identitäten. 
+                    Kryptographische Authentifizierung ohne zentrale Provider.
+                </p>
+                <div class="tech-stack">
+                    <span class="tech-tag">DID</span>
+                    <span class="tech-tag">SSI</span>
+                    <span class="tech-tag">Ed25519</span>
+                    <span class="tech-tag">Verifiable Credentials</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="principles-section" id="principles">
+            <h2 class="principles-title">Grundprinzipien des SSDE</h2>
+            <div class="principles-grid">
+                <div class="principle-item">
+                    <h3 class="principle-title">Dezentralisierung</h3>
+                    <p class="principle-description">
+                        Vollständige Eliminierung zentraler Server und Single Points of Failure.
+                    </p>
+                </div>
+                <div class="principle-item">
+                    <h3 class="principle-title">Client-Centricity</h3>
+                    <p class="principle-description">
+                        Alle Funktionalität und Datenverarbeitung erfolgt direkt auf dem Endgerät.
+                    </p>
+                </div>
+                <div class="principle-item">
+                    <h3 class="principle-title">Offline-First</h3>
+                    <p class="principle-description">
+                        Vollständige Funktionsfähigkeit auch ohne aktive Internetverbindung.
+                    </p>
+                </div>
+                <div class="principle-item">
+                    <h3 class="principle-title">Datensouveränität</h3>
+                    <p class="principle-description">
+                        Nutzer haben vollständige Kontrolle über ihre Daten und Identität.
+                    </p>
+                </div>
+                <div class="principle-item">
+                    <h3 class="principle-title">Kryptographische Sicherheit</h3>
+                    <p class="principle-description">
+                        Ende-zu-Ende-Verschlüsselung und digitale Signaturen für alle Interaktionen.
+                    </p>
+                </div>
+                <div class="principle-item">
+                    <h3 class="principle-title">Netzwerkresilienz</h3>
+                    <p class="principle-description">
+                        Toleranz gegenüber Netzwerkausfällen und variabler Konnektivität.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="roadmap-section" id="roadmap">
+            <h2 class="roadmap-title">Strategische Roadmap</h2>
+            <div class="roadmap-phases">
+                <div class="phase-card">
+                    <div class="phase-number">1</div>
+                    <h3 class="phase-title">Konzeptionelles MVP</h3>
+                    <p class="phase-description">
+                        Grundlegende PWA-Struktur mit Service Worker für Offline-Fähigkeit. 
+                        Einfache P2P-Nachrichtenfunktionalität über WebRTC mit minimaler Signalisierung. 
+                        Lokale Datenspeicherung via IndexedDB.
+                    </p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">2</div>
+                    <h3 class="phase-title">Dezentrale Identität</h3>
+                    <p class="phase-description">
+                        Integration von DIDs/SSI für Benutzerauthentifizierung. 
+                        Experimentelle IPFS-Integration für statische Assets. 
+                        Basis für Code-Integritätsprüfung via DLT.
+                    </p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">3</div>
+                    <h3 class="phase-title">Erweiterte P2P-Funktionen</h3>
+                    <p class="phase-description">
+                        Komplexere P2P-Interaktionsmuster und verteilte Arbeitsabläufe. 
+                        Optimierung der Peer-Discovery-Mechanismen. 
+                        Einführung von Reputation-Systemen.
+                    </p>
+                </div>
+                <div class="phase-card">
+                    <div class="phase-number">4</div>
+                    <h3 class="phase-title">Ökosystem-Erweiterung</h3>
+                    <p class="phase-description">
+                        Tools für Drittentwickler-Module. 
+                        Dezentrale Governance-Modelle. 
+                        Performance-Optimierung für verschiedene Geräte.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo-section">
+            <h2 class="demo-title">Erleben Sie die Zukunft</h2>
+            <p class="demo-description">
+                Metropolis Prime revolutioniert die Art, wie wir digitale Anwendungen entwickeln und nutzen. 
+                Ohne Server, ohne Upload, aber mit voller Internet-Funktionalität.
+            </p>
+            <a href="#" class="demo-button" onclick="startDemo()">Demo Starten</a>
+        </section>
+    </div>
+
+    <script>
+        function startDemo() {
+            alert('Demo-Modus: Metropolis Prime SSDE\n\n' +
+                  '🏙️ Initialisiere dezentrale Architektur...\n' +
+                  '📱 PWA wird offline-fähig gemacht...\n' +
+                  '🔗 P2P-Verbindungen werden aufgebaut...\n' +
+                  '🔐 Dezentrale Identität wird erstellt...\n' +
+                  '🗄️ Lokale Datenspeicherung aktiviert...\n\n' +
+                  'System bereit für serverlose Operation!');
+        }
+
+        // Simulate system status updates
+        setInterval(() => {
+            const statusTexts = [
+                'System Aktiv - Dezentral & Serverlos',
+                'P2P Netzwerk - 1,247 Peers verbunden',
+                'IPFS Knoten - Synchronisiert',
+                'DID Identität - Verifiziert',
+                'Offline-Modus - Bereit'
+            ];
+            
+            const statusElement = document.querySelector('.system-status span');
+            const currentIndex = statusTexts.indexOf(statusElement.textContent);
+            const nextIndex = (currentIndex + 1) % statusTexts.length;
+            statusElement.textContent = statusTexts[nextIndex];
+        }, 3000);
+
+        // Add interactive hover effects
+        document.querySelectorAll('.architecture-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
+

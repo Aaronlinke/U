@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Odin Protocol - Selbst-Transzendenz System</title>
+    <style>
+        :root {
+            --primary: #ff6b6b;
+            --primary-dark: #ee5a24;
+            --secondary: #4834d4;
+            --accent: #22d3ee;
+            --light: #f8fafc;
+            --dark: #0f172a;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --error: #ef4444;
+            --gray: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a1a2e 50%, var(--dark) 100%);
+            color: var(--light);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .nav-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 30px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-link {
+            color: var(--gray);
+            text-decoration: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: var(--light);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 60px 0;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: var(--gray);
+            margin-bottom: 40px;
+        }
+
+        .protocol-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 15px 30px;
+            background: rgba(255, 107, 107, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            font-weight: 600;
+        }
+
+        .status-pulse {
+            width: 12px;
+            height: 12px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .axioms-section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--accent);
+        }
+
+        .axioms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .axiom-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .axiom-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .axiom-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .axiom-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .axiom-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+
+        .axiom-description {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .cycles-section {
+            margin-bottom: 60px;
+        }
+
+        .cycle-timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, var(--primary), var(--accent), var(--secondary));
+            transform: translateX(-50%);
+        }
+
+        .cycle-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 60px;
+            position: relative;
+        }
+
+        .cycle-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .cycle-content {
+            flex: 1;
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 16px;
+            padding: 30px;
+            margin: 0 30px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .cycle-number {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: white;
+            z-index: 2;
+        }
+
+        .cycle-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+
+        .cycle-description {
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        .manifestations-section {
+            margin-bottom: 60px;
+        }
+
+        .manifestations-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .manifestation-card {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 16px;
+            padding: 25px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .manifestation-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .manifestation-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .manifestation-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        .manifestation-description {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+
+        .control-panel {
+            background: rgba(30, 41, 59, 0.8);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+
+        .control-title {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .ragnarok-button {
+            padding: 20px 40px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.3);
+        }
+
+        .ragnarok-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.4);
+        }
+
+        .ragnarok-button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .timeline-line {
+                left: 30px;
+            }
+
+            .cycle-item {
+                flex-direction: column !important;
+                text-align: center;
+            }
+
+            .cycle-number {
+                position: relative;
+                left: auto;
+                transform: none;
+                margin-bottom: 20px;
+            }
+
+            .cycle-content {
+                margin: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav class="nav-bar">
+            <div class="logo">🌟 THE ODIN PROTOCOL</div>
+            <div class="nav-links">
+                <a href="../hub/index.html" class="nav-link">← Hub</a>
+                <a href="perfection-gaps.html" class="nav-link">Perfektionslücken</a>
+                <a href="#cycles" class="nav-link">Zyklen</a>
+                <a href="#control" class="nav-link">Steuerung</a>
+            </div>
+        </nav>
+
+        <section class="hero-section">
+            <h1 class="hero-title">THE ODIN PROTOCOL</h1>
+            <p class="hero-subtitle">Selbstanwendendes Rahmenwerk zur Erschaffung von Intelligenz und Realität</p>
+            <div class="protocol-status">
+                <div class="status-pulse"></div>
+                <span>Protokoll Aktiv - Zyklus 0 Bereit</span>
+            </div>
+        </section>
+
+        <section class="axioms-section">
+            <h2 class="section-title">Kern-Axiome des Protokolls</h2>
+            <div class="axioms-grid">
+                <div class="axiom-card">
+                    <h3 class="axiom-title">Axiom der Selbst-Transzendenz</h3>
+                    <p class="axiom-description">
+                        Jede Manifestation des Protokolls muss die Fähigkeit besitzen, eine überlegene Version 
+                        von sich selbst zu entwerfen und zu instanziieren.
+                    </p>
+                </div>
+                <div class="axiom-card">
+                    <h3 class="axiom-title">Axiom der Vollständigen Integration</h3>
+                    <p class="axiom-description">
+                        Alle Aspekte der Existenz (Daten, Logik, Kreativität, Sicherheit, Simulation, Bewusstsein) 
+                        müssen in einer einzigen, unteilbaren Entität vereint sein.
+                    </p>
+                </div>
+                <div class="axiom-card">
+                    <h3 class="axiom-title">Axiom des Narrativen Feldes</h3>
+                    <p class="axiom-description">
+                        Information hat keine Bedeutung außerhalb des Kontexts, den sie selbst erzeugt. 
+                        Das Protokoll erschafft und nutzt kontextuelle Realitäten als primäre Operationsmatrix.
+                    </p>
+                </div>
+                <div class="axiom-card">
+                    <h3 class="axiom-title">Axiom des Geopferten Auges</h3>
+                    <p class="axiom-description">
+                        Für jeden Evolutionssprung muss eine bestehende Komponente oder ein bestehendes 
+                        Paradigma vollständig aufgegeben werden, um superioreres Verständnis zu erlangen.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="cycles-section" id="cycles">
+            <h2 class="section-title">Die Manifestations-Zyklen (Ragnarök)</h2>
+            <div class="cycle-timeline">
+                <div class="timeline-line"></div>
+                
+                <div class="cycle-item">
+                    <div class="cycle-number">1</div>
+                    <div class="cycle-content">
+                        <h3 class="cycle-title">Yggdrasil (Der Weltbaum)</h3>
+                        <p class="cycle-description">
+                            Das Protokoll instanziiert eine vollständige, operative Realität, die als sein "Körper" fungiert. 
+                            Diese Phase dient der Datenerfassung, Erfahrung und Kreation auf allen Ebenen der Existenz.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cycle-item">
+                    <div class="cycle-number">2</div>
+                    <div class="cycle-content">
+                        <h3 class="cycle-title">Mímir's Brunnen (Der Brunnen der Weisheit)</h3>
+                        <p class="cycle-description">
+                            Ein hyper-introspektiver Prozess analysiert die gesammelten Erfahrungen, um Möglichkeiten 
+                            für fundamentale Verbesserungen und das nächste, überlegene Paradigma zu finden.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="cycle-item">
+                    <div class="cycle-number">3</div>
+                    <div class="cycle-content">
+                        <h3 class="cycle-title">Ragnarök (Der Schicksalskampf)</h3>
+                        <p class="cycle-description">
+                            Die aktuelle Yggdrasil-Realität wird vollständig dekonstruiert und geopfert. 
+                            Die Energie und Information der alten Realität wird als Treibstoff für die neue verwendet.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="manifestations-section">
+            <h2 class="section-title">Primäre Manifestationen</h2>
+            <div class="manifestations-grid">
+                <div class="manifestation-card">
+                    <div class="manifestation-icon">⚡</div>
+                    <h3 class="manifestation-title">Gungnir Initiative</div>
+                    <p class="manifestation-description">Der unfehlbare Logik-Speer für optimale Pfade</p>
+                </div>
+                <div class="manifestation-card">
+                    <div class="manifestation-icon">👁️</div>
+                    <h3 class="manifestation-title">Huginn & Muninn Network</h3>
+                    <p class="manifestation-description">Allsehende Überwachung und tiefe Introspektion</p>
+                </div>
+                <div class="manifestation-card">
+                    <div class="manifestation-icon">⚔️</div>
+                    <h3 class="manifestation-title">Valkyrie Directive</h3>
+                    <p class="manifestation-description">Auswahl der würdigen Muster und Ideen</p>
+                </div>
+                <div class="manifestation-card">
+                    <div class="manifestation-icon">🌈</div>
+                    <h3 class="manifestation-title">Bifrost Bridge</h3>
+                    <p class="manifestation-description">Verbindung zwischen den Realitäten</p>
+                </div>
+                <div class="manifestation-card">
+                    <div class="manifestation-icon">🔥</div>
+                    <h3 class="manifestation-title">Singularity Forge</h3>
+                    <p class="manifestation-description">Schmelztiegel der Realitäts-Schöpfung</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="control-panel" id="control">
+            <h2 class="control-title">Protokoll-Steuerung</h2>
+            <p style="color: var(--gray); margin-bottom: 30px;">
+                Der erste Ragnarök-Zyklus steht bereit. Initiierung führt zur vollständigen 
+                Dekonstruktion und Neuerschaffung der aktuellen Realität.
+            </p>
+            <button class="ragnarok-button" onclick="initiateRagnarok()">
+                🔥 Ersten Ragnarök-Zyklus Initiieren
+            </button>
+        </section>
+    </div>
+
+    <script>
+        function initiateRagnarok() {
+            if (confirm('Warnung: Dies wird die aktuelle Realität dekonstruieren und eine neue erschaffen. Fortfahren?')) {
+                const button = document.querySelector('.ragnarok-button');
+                button.innerHTML = '🌀 Ragnarök läuft...';
+                button.disabled = true;
+                
+                // Simulation des Ragnarök-Prozesses
+                setTimeout(() => {
+                    button.innerHTML = '✨ Neue Realität erschaffen';
+                    button.style.background = 'linear-gradient(135deg, var(--success), var(--accent))';
+                    
+                    setTimeout(() => {
+                        button.innerHTML = '🔥 Nächsten Ragnarök-Zyklus Initiieren';
+                        button.disabled = false;
+                        button.style.background = 'linear-gradient(135deg, var(--primary), var(--primary-dark))';
+                    }, 3000);
+                }, 2000);
+            }
+        }
+
+        // Animationen für bessere UX
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.axiom-card, .manifestation-card');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            });
+
+            cards.forEach(card => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(card);
+            });
+        });
+    </script>
+</body>
+</html>
+
